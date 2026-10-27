@@ -54,7 +54,7 @@ You can still open any thread's tab and talk to it directly. A thread is just an
 ## Install
 
 ```bash
-git clone https://github.com/demoatworkstream/cmux-threads.git ~/.claude/skills/cmux-threads
+git clone https://github.com/demoatworkstream/cmux-threads-public.git ~/.claude/skills/cmux-threads
 chmod +x ~/.claude/skills/cmux-threads/scripts/*.sh
 ```
 
