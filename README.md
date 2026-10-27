@@ -18,7 +18,7 @@ cmux-threads is a Claude Code skill that does that switching for you. You talk t
 | You switch tabs to see who is done or waiting | Tab titles show status: `▶` working, `?` needs you, `✓` finished, `✗` failed |
 | You scroll each session to find its question | The root collects every question into one numbered list |
 | You reply in the right tab | You reply in the root; it forwards your answer to the right thread |
-| Parallel code changes collide in one checkout | Each code thread works in its own git worktree |
+| Parallel code changes collide in one checkout | Each thread that changes code gets its own git worktree (`claude -w`); research threads don't need one |
 
 You can still open any thread's tab and talk to it directly. A thread is just an ordinary Claude Code session.
 
@@ -27,9 +27,9 @@ You can still open any thread's tab and talk to it directly. A thread is just an
 ```
  you ──▶ ⌂ Root · pizza-shop          one Claude Code session you talk to
             │  starts, watches, relays
-            ├──▶ ✓ Checkout total     its own Claude Code session (tab + worktree)
-            ├──▶ ✓ Menu page
-            └──▶ ? Payments research  waiting for your answer
+            ├──▶ ✓ Checkout total     its own Claude Code session in a tab,
+            ├──▶ ✓ Menu page          plus its own git worktree (it changes code)
+            └──▶ ? Payments research  research only: no worktree; waiting for your answer
 ```
 
 1. You tell the root what you want, in plain words. Several tasks in one message is fine.
