@@ -96,3 +96,7 @@ You don't need any of these to start:
 - `scripts/`: helpers. `new-root.sh` creates a project root; `rc-recover.sh` turns Remote Control back on after an account switch.
 - `threadsd/`: the optional daemon. [EXTENDING.md](EXTENDING.md) explains how to add agents, status sources or UIs.
 - `docs/screenshots/`: the images above. They are rendered from the text of real cmux screens (`cmux read-screen`) in a demo run, with the username replaced.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
