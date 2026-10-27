@@ -41,9 +41,21 @@ You can still open any thread's tab and talk to it directly. A thread is just an
 
 *The "Checkout total" thread: it fixed the bug in its own worktree, committed, and reported `STATUS: finished`.*
 
-![Answering in the root](docs/screenshots/03-reply-routed.png)
+## Many projects: the ◎ Master
 
-*You answer the root ("1, go with Square"). It forwards your answer to the Payments thread, which records the decision and finishes. The root's count drops to (0/3).*
+With more than one project, add one more level on top. The **◎ Master** is the single session you talk to. It creates a root per project and passes your words to the right one. Then it brings back one status for everything:
+
+```
+ you ──▶ ◎ Master                     the only session you talk to
+            ├──▶ ⌂ Root · pizza-shop  one root per project (its own sidebar folder)
+            │       └──▶ ? Checkout decimals
+            └──▶ ⌂ Root · blog
+                    └──▶ ? Menu post
+```
+
+![The Master's status across two projects](docs/screenshots/03-master.png)
+
+*One message to the Master covered two projects. It made a root for each, each root started a thread, and the Master merged the reports into one table and one numbered list of questions. Start it with `/cmux-threads master` in its own cmux workspace.*
 
 ## What you need
 
@@ -68,10 +80,13 @@ Claude Code loads skills from `~/.claude/skills/` automatically. To update later
    > Fix the checkout total, add a menu page, and research Stripe vs Square. Ask me before picking one.
 4. Keep talking to the root: "status?", answers to its questions ("1"), new tasks, or "close the finished threads".
 
+![Answering in the root](docs/screenshots/04-reply-routed.png)
+
+*You answer the root ("1, go with Square"). It forwards your answer to the Payments thread, which records the decision and finishes. The root's count drops to (0/3).*
+
 Tips:
 - Ask for a plan first on anything big: "plan it and wait for my OK". The thread then stops with `? needs you` before it changes code.
 - Threads that change code get their own git worktree and branch, so they don't step on each other. Merging is up to you, or ask the root to do it.
-- With several projects, run `/cmux-threads master` in its own workspace. You get one entry point above every project's root.
 
 ## Be aware
 
