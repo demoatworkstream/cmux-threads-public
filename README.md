@@ -110,7 +110,7 @@ You don't need any of these to start:
 - `agents/`: one file per agent type (Claude Code, Codex): how to launch one, type into it and read its status.
 - `scripts/`: helpers. `new-root.sh` creates a project root; `rc-recover.sh` turns Remote Control back on after an account switch.
 - `threadsd/`: the optional daemon. [EXTENDING.md](EXTENDING.md) explains how to add agents, status sources or UIs.
-- `docs/screenshots/`: the images above. They are rendered from the text of real cmux screens (`cmux read-screen`) in a demo run, with the username replaced.
+- `docs/screenshots/`: the images above. They are rendered from the text of real cmux screens (`cmux read-screen`) in demo runs on made-up projects, with the username replaced and a few lines trimmed.
 
 ## License
 
