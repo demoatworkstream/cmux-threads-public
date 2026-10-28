@@ -2,7 +2,9 @@
 
 UI work isn't finished until it passes a design review by `⌂ Root · design-review`, one reviewer for all projects. The method, rubric, request template and review history live in `~/projects/design-review/` (see its README.md).
 
-**Applies to** any thread that changes something a user sees: web pages, iOS/Android screens, emails, components, CSS. It's on by default. A project opts out with a line in its own AGENTS.md: `Design gate: off`. Backend, scripts and docs never go through it.
+**Turns itself on.** The gate is on only on a machine where `~/projects/design-review` exists (the reviewer's folder, with its README, rubric and inbox). Without it the gate is off: threads report `finished` as usual, and nobody uses `◇`. To use it on your own machine, set up a design-review root in that folder; the folder's README is the reviewer's method.
+
+**Applies to** any thread that changes something a user sees: web pages, iOS/Android screens, emails, components, CSS. When the gate is on, it's on for every project; a project opts out with a line in its own AGENTS.md: `Design gate: off`. Backend, scripts and docs never go through it.
 
 ## Thread side (paste into the thread prompt)
 

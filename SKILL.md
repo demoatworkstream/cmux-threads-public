@@ -92,7 +92,7 @@ Hierarchy: `◎ Master` → `⌂ Root · <project>` (one per project, each in it
    - The repo or stack context, plus "Follow AGENTS.md / CLAUDE.md".
    - Scope: read-only research, or code changes. For bigger or ambiguous work, ask for a plan first: "report with STATUS: needs you and wait for approval before implementing".
    - Reporting: every report starts with `STATUS: working | needs you | finished`. If blocked, write `STATUS: needs you` plus the question, and wait.
-   - If the thread may change anything a user sees, paste the thread-side "Design gate" paragraph from [gates/design-review.md](gates/design-review.md). Its extra status is `STATUS: ready for review`.
+   - **Only if `~/projects/design-review` exists** (the design gate is on for this machine) and the thread may change anything a user sees: paste the thread-side "Design gate" paragraph from [gates/design-review.md](gates/design-review.md). Its extra status is `STATUS: ready for review`.
    - Answer format (paste this into the prompt): "The user reads on a phone. Answer per question: repeat each question, shortened, as a bold heading, with the direct answer in one or two lines right under it, then brief detail. Several questions get several sections in the order asked. When you ask the user something, number each question and keep each one on its own line. Never use pop-up questions (the AskUserQuestion tool): write choices as numbered text options under a question line ending in (pick one) or (pick any), and ask for a reply with numbers." 
 3. Create the tab and launch the agent in it. The launch command is in the agent's module: [agents/claude.md](agents/claude.md) by default, [agents/codex.md](agents/codex.md) when the user asks for Codex.
    ```bash
@@ -126,7 +126,7 @@ Remote Control is a Claude Code feature. On every status check, and when the use
 ## Tracking and reporting
 
 - Keep a list of threads: topic → `surface:N`, agent (`claude`, `codex`, …), slug, worktree, status (`▶` working, `?` needs you, `✓` finished, `○` idle, `✗` failed).
-- When you report, show the table. Relay only the important news: a thread finished (summary plus PR or branch, and `Design: pass <path>` for UI work), a thread needs a decision (the exact question), a design review failed (verdict and top 3 findings), or a thread failed. A UI thread isn't finished without a design pass: see [gates/design-review.md](gates/design-review.md).
+- When you report, show the table. Relay only the important news: a thread finished (summary plus PR or branch, and, when the design gate is on, `Design: pass <path>` for UI work), a thread needs a decision (the exact question), a design review failed (verdict and top 3 findings), or a thread failed. With the gate on, a UI thread isn't finished without a design pass: see [gates/design-review.md](gates/design-review.md).
 - Never claim a status you haven't just read from the screen, or from threadsd's `/state`.
 - **Answer per question.** The user often reads on a phone through Remote Control. For each question they ask, repeat it, shortened, as a bold heading, and put the direct answer in one or two lines right under it; detail comes after, briefly. Several small questions get several small sections, in the order asked. When relaying a thread's questions to the user, number them, one per line. This applies to the master, every root, and every thread.
 - **No pop-ups.** Never use the AskUserQuestion tool, or anything else that replaces the input box with a menu. The user often answers from a phone (Remote Control, Threads iOS, threadsd-based apps), where a pop-up can't be shown and it blocks every message sent until someone answers it on the Mac. Write choices as numbered text options instead, in the quick-select form below. This applies to the master, every root and every thread; put it in every thread prompt.
@@ -156,7 +156,7 @@ Read a module only when the task needs it. Each one is self-contained.
 - [machines.md](machines.md): when a project or root lives on another Mac.
 - [ui/threadsd-api.md](ui/threadsd-api.md): to install or run threadsd, and to read status from `/state` instead of screens.
 - [ui/ios-app.md](ui/ios-app.md): when the user asks about the Threads phone app, or a send from it reaches you.
-- [gates/design-review.md](gates/design-review.md): when a thread may change UI (prompt line), reports `ready for review`, or a design verdict arrives.
+- [gates/design-review.md](gates/design-review.md): only on machines where `~/projects/design-review` exists; then when a thread may change UI (prompt line), reports `ready for review`, or a design verdict arrives. Without that folder, ignore the gate and the `◇` mark.
 - [scripts/](scripts/): rc-recover.sh (Remote Control recovery by hand; threadsd also runs it every 120 s).
 - [EXTENDING.md](EXTENDING.md): to add an agent type, a status source, a machine or a UI.
 

@@ -102,7 +102,7 @@ You don't need any of these to start:
 - **threadsd** (`threadsd/`): a small local daemon that serves live status of every session over your Tailscale network, for a phone or a dashboard. See [ui/threadsd-api.md](ui/threadsd-api.md).
 - **Codex threads:** [agents/codex.md](agents/codex.md) runs a thread on the `codex` CLI instead of Claude.
 - **Several Macs:** [machines.md](machines.md).
-- **Design review gate:** [gates/design-review.md](gates/design-review.md). UI work isn't reported finished until a reviewer session passes it.
+- **Design review gate:** [gates/design-review.md](gates/design-review.md). UI work isn't reported finished until a reviewer session passes it. Off unless you set up a reviewer in `~/projects/design-review`.
 
 ## Files
 
