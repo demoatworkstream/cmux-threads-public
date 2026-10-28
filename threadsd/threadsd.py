@@ -5,6 +5,7 @@
   threadsd.py state                         print what /state returns (no server needed)
   threadsd.py submit SURFACE WORKSPACE TEXT  deliver text with the agent's submit (testing)
   threadsd.py rc-recover [--dry-run]        one Remote Control recovery pass
+  threadsd.py health                        exit 0 if the running daemon answers /healthz
 
 The core here owns the state model, the versioned schema and the HTTP API. Everything
 agent- or source-specific is a plugin (plugins/): agent adapters, status sources,
@@ -1002,6 +1003,31 @@ def serve():
         raise
 
 
+def health():
+    """0: the daemon answers /healthz. 1: it doesn't. 2: not installed here (no token). 3: Tailscale is down."""
+    import urllib.request
+    if not os.path.exists(TOKEN_PATH):
+        print("threadsd is not installed on this Mac (no token)")
+        return 2
+    ip = os.environ.get("THREADSD_BIND") or tailscale_ip()
+    if not ip:
+        print("Tailscale is down; threadsd can't listen until it is up")
+        return 3
+    with open(TOKEN_PATH) as f:
+        req = urllib.request.Request(f"http://{ip}:{PORT}/healthz", headers={"Authorization": "Bearer " + f.read().strip()})
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))  # straight to the tailnet, never a proxy
+    for _ in range(2):  # one retry: a busy daemon is slow, not dead
+        try:
+            h = json.loads(opener.open(req, timeout=5).read())
+            print(f"threadsd ok: pid {h.get('pid')}, up since {h.get('started_at')}"
+                  + (f", cmux error: {h['cmux_error']}" if h.get("cmux_error") else ""))
+            return 0
+        except Exception as e:
+            err = e
+    print(f"threadsd doesn't answer on {ip}:{PORT}: {err}")
+    return 1
+
+
 def main():
     cmd = sys.argv[1] if len(sys.argv) > 1 else "serve"
     if cmd == "serve":
@@ -1014,6 +1040,8 @@ def main():
         print(st.deliver(r, sys.argv[4]) if r else "no session on that surface")
     elif cmd == "rc-recover":
         print(json.dumps(upkeep(new_state(), dry="--dry-run" in sys.argv), ensure_ascii=False))
+    elif cmd == "health":
+        sys.exit(health())
     else:
         print(__doc__)
         sys.exit(2)
